@@ -31,10 +31,16 @@ Python 3, conda, pip
 ### Install Dependencies
 Before installing this package, there are a few dependencies that are needed to be run in terminal
 ```bash
-# Install pytorch, command differs based on operating system, gpu, etc. so 
+# 1.Link to instructions to install miniconda
+# https://www.anaconda.com/docs/getting-started/miniconda/install
+# 2.Install python 3.11 (newer ver) may not be compatible with pytorch
+conda create -n my_pytorch_env python=3.11
+conda activate my_pytorch_env
+Python --version #double check ver updated
+# 3.Install pytorch, command differs based on operating system, gpu, etc. so 
 # visit https://pytorch.org/get-started/locally/ for complete instructions
 conda install pytorch torchvision cpuonly -c pytorch
-# Install poppler which allows pdf manipulation
+# 4.Install poppler which allows pdf manipulation
 conda install -c conda-forge poppler
 ```
 
