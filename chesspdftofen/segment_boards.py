@@ -47,14 +47,15 @@ def get_contours(th2):
   contours, hierarchy = cv2.findContours(th2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
   # contours, hierarchy = cv2.findContours(th2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
    
-  contours.sort(key=lambda cnt: cv2.contourArea(cnt), reverse=True)
+  contours_list = list(contours)
+  contours_list.sort(key=lambda cnt: cv2.contourArea(cnt), reverse=True)
   filtered_contours = []
   filtered_rects = []
   buf = 0
   min_area = 64*25*25
   h_max, w_max = th2.shape
 
-  for i, cnt in enumerate(contours):
+  for i, cnt in enumerate(contours_list):
     area = cv2.contourArea(cnt)
     if not (min_area <= area):
       # print('area', area)

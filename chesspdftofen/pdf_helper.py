@@ -76,7 +76,7 @@ def create_annotation(x, y, meta):
   return linkAnnotation, commentAnnotation
 
 def add_annotation_to_page(annotation, page, output):
-  annotation_ref = output._addObject(annotation);
+  annotation_ref = output._add_object(annotation);
 
   if "/Annots" in page:
     page[NameObject("/Annots")].append(annotation_ref)

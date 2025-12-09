@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 from pdf2image import convert_from_path
 from PIL import Image
-from PyPDF2 import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfWriter, PdfReader
 import re
 import tempfile
 # import tkinter as tk
@@ -135,14 +135,14 @@ def run(file_path,
   yield 'Reading PDF ...'
   if not build_training_set:
     input_file = open(file_path, 'rb')
-    pdf_input = PdfFileReader(input_file, strict=False)
-    pdf_output = PdfFileWriter()
-    pdf_output.appendPagesFromReader(pdf_input)
+    pdf_input = PdfReader(input_file, strict=False)
+    pdf_output = PdfWriter()
+    pdf_output.append_pages_from_reader(pdf_input)
 
-    num_pages = pdf_output.getNumPages()
+    num_pages = len(pdf_output.pages)
     assert num_pages > 0
-    page1 = pdf_output.getPage(0)
-    _, _, pdf_w, pdf_h = page1.mediaBox
+    page1 = pdf_output.pages[0]
+    _, _, pdf_w, pdf_h = page1.mediabox
     pdf_w = pdf_w.as_numeric()
     pdf_h = pdf_h.as_numeric()
 
@@ -196,8 +196,8 @@ def run(file_path,
               'author': '',
               'contents': fen_str
             })
-            add_annotation_to_page(annotation1, pdf_output.getPage(page_num), pdf_output)
-            add_annotation_to_page(annotation2, pdf_output.getPage(page_num), pdf_output)
+            add_annotation_to_page(annotation1, pdf_output.pages[page_num], pdf_output)
+            add_annotation_to_page(annotation2, pdf_output.pages[page_num], pdf_output)
           else:
             create_training_set(tensors, predicted)
 
